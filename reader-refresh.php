@@ -89,53 +89,90 @@ function getRandomURL(){
 }
 
 
+
+
 function my_custom_redirect () {
+	global $post;
+	if ( is_page() || is_object( $post ) ) {
 		//Get all options
-		$continuous_refresh = get_option('wpt_continuous_refresh');
-		$user_disable_refresh = get_option('wpt_user_disable_refresh');
-		$delay = get_option('wpt_delay');
-		$random = get_option('wpt_random');
-		$redirect = get_option('wpt_redirect');
-		$specific_url = get_option('wpt_specific_url');
-		$white_list = explode(", ",get_option('wpt_white_list'));
-		$url = getURL($redirect, $specific_url, $white_list);
+		$enable_refresh = get_option('wpt_enable_refresh');
+		if($enable_refresh){
+			$continuous_refresh = get_option('wpt_continuous_refresh');
+			$user_disable_refresh = get_option('wpt_user_disable_refresh');
+			$random = get_option('wpt_random');
+			$min = get_option('min_refresh');
+			$max = get_option('max_refresh');
+			$redirect = get_option('wpt_redirect');
+			$specific_url = get_option('wpt_specific_url');
+			$white_list = explode(", ",get_option('wpt_white_list'));
+			$url = getURL($redirect, $specific_url, $white_list);
+			$delay = $random ? rand($min, $max) : get_option('wpt_delay');
 
-		//Create script bassed of options
-		$scriptOutput = '<script>
-					(function () {
-							var t;
-							window.onload = resetTimer;
-							/*
-								Possible DOM Events
-								document.onload = resetTimer;
-								document.onmousemove = resetTimer;
-								document.onmousedown = resetTimer; // touchscreen presses
-								document.ontouchstart = resetTimer;
-								document.onclick = resetTimer;     // touchpad clicks
-								document.onscroll = resetTimer;    // scrolling with arrow keys
-								document.onkeypress = resetTimer;
-							*/
+			if($continuous_refresh){
+				$url = $url. '?rr=true';
+			}
 
-							function redirect() {
-								 var userDisable = "' . $user_disable_refresh  . '";
-									if(userDisable){
-											if(confirm("You are being redirected!")){
-												  clearTimeout(t);
-													window.location = "'. $url .'";
-											}
-									}else{
-										window.location = "'. $url .'";
-									}
-							}
-
-							function resetTimer() {
+			//Create script bassed of options
+			$scriptOutput = '<script>
+						(function () {
+								var t;
+								var l;
+								if(window.location.href.indexOf("?rr=true") > -1 || window.location.href.indexOf("rr") > -1){
+									window.onload = resetTimer;
+								}
+								/*
+									Possible DOM Events
+									document.onload = resetTimer;
+									document.onmousemove = resetTimer;
+									document.onmousedown = resetTimer; // touchscreen presses
+									document.ontouchstart = resetTimer;
+									document.onclick = resetTimer;     // touchpad clicks
+									document.onscroll = resetTimer;    // scrolling with arrow keys
+									document.onkeypress = resetTimer;
+								*/
+								var canRedirect = function(){
 									clearTimeout(t);
-									t = setTimeout(redirect, ('. $delay . ' * 1000));
-							}
-						})();
-					</script>';
-		echo $scriptOutput;
-		debug_to_console($url);
+									clearTimeout(l);
+									window.location = "'.$url.'";
+								}
+								var clearRefresh = function(){
+									var pop = document.getElementById("refresh-pop-up-shell");
+									if(pop){
+										pop.outerHTML = "";
+										delete pop;
+									}
+									clearTimeout(t);
+									clearTimeout(l);
 
+								}
+								function addPopup(url){
+									var popup = \'<div class="refresh-pop-up"> <p>You are about to be redirected</p> <button  id="cancel-refresh">Cancel</button><button id="continue-refresh">Continue</button></div>;\'
+									var spn = document.createElement("span");
+									spn.innerHTML = popup;
+									spn.id = "refresh-pop-up-shell";
+									document.getElementById("page").appendChild(spn);
+									document.getElementById("cancel-refresh").onclick = clearRefresh;
+									document.getElementById("continue-refresh").onclick = canRedirect;
+
+									l = setTimeout(canRedirect, 8000);
+								}
+								function redirect() {
+									 var userDisable = "' . $user_disable_refresh  . '";
+										if(userDisable){
+												addPopup();
+										}else{
+											window.location = "'. $url .'";
+										}
+								}
+
+								function resetTimer() {
+										clearTimeout(t);
+										t = setTimeout(redirect, ('. $delay . ' * 1000));
+								}
+							})();
+						</script>';
+			echo $scriptOutput;
+		}
+	}
 }
 add_action( 'get_header', 'my_custom_redirect' );

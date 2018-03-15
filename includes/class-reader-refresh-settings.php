@@ -112,6 +112,13 @@ class Reader_Refresh_Settings {
 			'description'			=> __( '', 'reader-refresh' ),
 			'fields'				=> array(
 				array(
+					'id' 			=> 'enable_refresh',
+					'label'			=> __( 'Enable Refresh', 'reader-refresh' ),
+					'description'	=> __( 'Enable plugin', 'reader-refresh' ),
+					'type'			=> 'checkbox',
+					'default'		=> ''
+				),
+				array(
 					'id' 			=> 'continuous_refresh',
 					'label'			=> __( 'Continuous Refresh', 'reader-refresh' ),
 					'description'	=> __( '(Adds URL Parameter to redirect)', 'reader-refresh' ),
@@ -139,7 +146,20 @@ class Reader_Refresh_Settings {
 					'type'			=> 'checkbox',
 					'default'		=> ''
 				),
-
+				array(
+					'id' 			=> 'min_refresh',
+					'label'			=> __( 'Minimum Refresh Time', 'reader-refresh' ),
+					'description'	=> __( 'Seconds of Delay', 'reader-refresh' ),
+					'type'			=> 'text',
+					'placeholder'	=> __( '30', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'max_refresh',
+					'label'			=> __( 'Max Refresh Rime', 'reader-refresh' ),
+					'description'	=> __( 'Seconds of Delay', 'reader-refresh' ),
+					'type'			=> 'text',
+					'placeholder'	=> __( '30000', 'reader-refresh' )
+				),
 				array(
 					'id' 			=> 'redirect',
 					'label'			=> __( 'Redirect to', 'reader-refresh' ),
