@@ -36,14 +36,16 @@ jQuery( document ).ready( function ( e ) {
 	var checkURLStatus = function(){
 		 var specific  = $('#redirect_specific').is(":checked");
 		 var white_list = $('#redirect_list').is(":checked");
-		  $('.specific_url, .redirect_list').addClass('hidden');
+
+		 $('.specific_url, .white_list').addClass('hidden');
+
 		 if(specific){
 			 $('.specific_url').removeClass('hidden');
 		 }else if(white_list){
-				$('.redirect_list').removeClass('hidden');
+				$('.white_list').removeClass('hidden');
 		 }
 	}
 
-	$('#redirect_specific, #white_list').on('click', checkURLStatus);
+	$('#redirect_specific, #redirect_list, #redirect_same, #redirect_random').on('click', checkURLStatus);
 	checkURLStatus();
 });
