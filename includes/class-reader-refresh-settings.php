@@ -108,8 +108,8 @@ class Reader_Refresh_Settings {
 	private function settings_fields () {
 
 		$settings['standard'] = array(
-			'title'					=> __( '', 'reader-refresh' ),
-			'description'			=> __( '', 'reader-refresh' ),
+			'title'					=> __( 'General Settings', 'reader-refresh' ),
+			'description'			=> __( 'General Plugin Settings', 'reader-refresh' ),
 			'fields'				=> array(
 				array(
 					'id' 			=> 'enable_refresh',
@@ -184,8 +184,104 @@ class Reader_Refresh_Settings {
 				),
 			)
 		);
-
-
+		$settings['popup'] = array(
+			'title'					=> __( 'Popup Styles', 'reader-refresh' ),
+			'description'			=> __( 'These the styles for the pop up for the user to disable the plugin.', 'reader-refresh' ),
+			'fields'				=> array(
+				array(
+					'id' 			=> 'pop_title',
+					'label'			=> __( 'Title', 'reader-refresh' ),
+					'description'	=> __( 'Header text for the popup.', 'reader-refresh' ),
+					'type'			=> 'text',
+					'default'		=> 'Hello',
+					'placeholder'	=> __( 'Hello', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_message',
+					'label'			=> __( 'Message', 'reader-refresh' ),
+					'description'	=> __( 'Body text for the popup.', 'reader-refresh' ),
+					'type'			=> 'textarea',
+					'default'		=> 'You are about to be redirected.',
+					'placeholder'	=> __( 'You are about to be redirected.', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_cancel',
+					'label'			=> __( 'Cancel', 'reader-refresh' ),
+					'description'	=> __( 'Cancel button text for the popup.', 'reader-refresh' ),
+					'type'			=> 'text',
+					'default'		=> 'Cancel',
+					'placeholder'	=> __( 'Cancel', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_continue',
+					'label'			=> __( 'Continue', 'reader-refresh' ),
+					'description'	=> __( 'Continue button text for the popup.', 'reader-refresh' ),
+					'type'			=> 'text',
+					'default'		=> 'Continue',
+					'placeholder'	=> __( 'Continue', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_font',
+					'label'			=> __( 'Font', 'reader-refresh' ),
+					'description'	=> __( 'Cancel button text for the popup.', 'reader-refresh' ),
+					'type'			=> 'text',
+					'default'		=> 'arial',
+					'placeholder'	=> __( 'arial', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_mobile',
+					'label'			=> __( 'Mobile Width', 'reader-refresh' ),
+					'description'	=> __( '% Mobile width for the popup.', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '90',
+					'placeholder'	=> __( '90', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_max_width',
+					'label'			=> __( 'Max Width', 'reader-refresh' ),
+					'description'	=> __( 'px max-width for the popup.', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '600',
+					'placeholder'	=> __( '600', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_padding',
+					'label'			=> __( 'Padding', 'reader-refresh' ),
+					'description'	=> __( 'px padding around the popup.', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '20',
+					'placeholder'	=> __( '20', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_bg_color',
+					'label'			=> __( 'Background Color', 'reader-refresh' ),
+					'description'	=> __( '' ),
+					'type'			=> 'color',
+					'default'		=> '#FFFFFF'
+				),
+				array(
+					'id' 			=> 'pop_color',
+					'label'			=> __( 'Text Color', 'reader-refresh' ),
+					'description'	=> __( '' ),
+					'type'			=> 'color',
+					'default'		=> '#000000'
+				),
+				array(
+					'id' 			=> 'pop_button_bg_color',
+					'label'			=> __( 'Button Background Color', 'reader-refresh' ),
+					'description'	=> __( '' ),
+					'type'			=> 'color',
+					'default'		=> '#000000'
+				),
+				array(
+					'id' 			=> 'pop_button_color',
+					'label'			=> __( 'Button Text Color', 'reader-refresh' ),
+					'description'	=> __( '' ),
+					'type'			=> 'color',
+					'default'		=> '#FFFFFF'
+				)
+			)
+		);
 		$settings = apply_filters( $this->parent->_token . '_settings_fields', $settings );
 
 		return $settings;
@@ -291,7 +387,7 @@ class Reader_Refresh_Settings {
 				$html .= '</h2>' . "\n";
 			}
 
-			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
+			$html .= '<form method="post" class="' . esc_attr( $tab ) . '" action="options.php" enctype="multipart/form-data">' . "\n";
 
 				// Get settings fields
 				ob_start();

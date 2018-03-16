@@ -107,10 +107,23 @@ function my_custom_redirect () {
 			$white_list = explode(", ",get_option('wpt_white_list'));
 			$url = getURL($redirect, $specific_url, $white_list);
 			$delay = $random ? rand($min, $max) : get_option('wpt_delay');
+			$pop_title = get_option('wpt_pop_title') ?: "Hello";
+			$pop_message = get_option('wpt_pop_message') ?: "You are about to be redirected";
+			$pop_cancel = get_option('wpt_pop_cancel') ?: "Cancel";
+			$pop_continue = get_option('wpt_pop_continue') ?: "Continue";
+			$pop_font = get_option('wpt_pop_font') ?: "arial";
+			$pop_mobile = get_option('wpt_pop_mobile') ?: "90";
+			$pop_max_width = get_option('wpt_pop_max_width') ?: "600";
+			$pop_padding = get_option('wpt_pop_padding') ?: "20";
+			$pop_bg_color = get_option('wpt_pop_bg_color') ?: "#FFFFFF";
+			$pop_color = get_option('wpt_pop_color') ?: "#000000";
+			$pop_button_bg_color = get_option('wpt_pop_button_bg_color') ?: "#000000";
+			$pop_button_color = get_option('wpt_pop_button_color') ?: "#FFFFFF";
 
 			if($continuous_refresh){
 				$url = $url. '?rr=true';
 			}
+
 
 			//Create script bassed of options
 			$scriptOutput = '<script>
@@ -146,7 +159,7 @@ function my_custom_redirect () {
 
 								}
 								function addPopup(url){
-									var popup = \'<div class="refresh-pop-up"> <p>You are about to be redirected</p> <button  id="cancel-refresh">Cancel</button><button id="continue-refresh">Continue</button></div>;\'
+									var popup = \'<div class="refresh-pop-up"style="font-family:'.$pop_font.';width:'.$pop_mobile.'%;max-width:'.$pop_max_width.'px;background-color:'.$pop_bg_color.';color:'.$pop_color.';padding:'.$pop_padding.'px;"><h1>'.$pop_title.'</h1><p>'.$pop_message.'</p><button style="background-color:'.$pop_button_bg_color.'; color:'.$pop_button_color.';" id="cancel-refresh">'.$pop_cancel.'</button><button style="background-color:'.$pop_button_bg_color.'; color:'.$pop_button_color.';" id="continue-refresh">'.$pop_continue.'</button</div>\';
 									var spn = document.createElement("span");
 									spn.innerHTML = popup;
 									spn.id = "refresh-pop-up-shell";
