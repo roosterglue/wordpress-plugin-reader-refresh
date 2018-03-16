@@ -119,6 +119,18 @@ function my_custom_redirect () {
 			$pop_color = get_option('wpt_pop_color') ?: "#000000";
 			$pop_button_bg_color = get_option('wpt_pop_button_bg_color') ?: "#000000";
 			$pop_button_color = get_option('wpt_pop_button_color') ?: "#FFFFFF";
+			$pop_show_count =  get_option('wpt_pop_show_count') ?: 'false';
+			$pop_count =  get_option('wpt_pop_count') ?: 8;
+			$pop_radius = get_option('wpt_pop_radius') ?: 15;
+			$pop_border_width = get_option('$wpt_pop_border_width') ?: 2;
+			$pop_border_color = get_option('wpt_pop_border_color') ?: "#000000";
+			$pop_button_border_width = get_option('wpt_$pop_button_border_width') ?: 2;
+			$pop_button_border_color = get_option('wpt_pop_button_border_color') ?: "#000000";
+			$pop_button_hover_bg_color = get_option('wpt_pop_button_hover_bg_color') ?: "#000000";
+			$pop_button_hover_color = get_option('wpt_pop_button_hover__color') ?: "#ffffff";
+			$pop_button_hover_border_color = get_option('wpt_pop_button_hover_border_color') ?: "#000000";
+			$overlay =  get_option('wpt_overlay') ?: "#000000";
+			$overlay_opacity =  get_option('wpt_overlay_opacity') ?: "90";
 
 			if($continuous_refresh){
 				$url = $url. '?rr=true';
@@ -130,19 +142,16 @@ function my_custom_redirect () {
 						(function () {
 								var t;
 								var l;
+								var m;
+								var ct = '.$pop_count.';
 								if(window.location.href.indexOf("?rr=true") > -1 || window.location.href.indexOf("rr") > -1){
 									window.onload = resetTimer;
-								}
-								/*
-									Possible DOM Events
-									document.onload = resetTimer;
-									document.onmousemove = resetTimer;
 									document.onmousedown = resetTimer; // touchscreen presses
 									document.ontouchstart = resetTimer;
 									document.onclick = resetTimer;     // touchpad clicks
 									document.onscroll = resetTimer;    // scrolling with arrow keys
 									document.onkeypress = resetTimer;
-								*/
+								}							
 								var canRedirect = function(){
 									clearTimeout(t);
 									clearTimeout(l);
@@ -156,18 +165,83 @@ function my_custom_redirect () {
 									}
 									clearTimeout(t);
 									clearTimeout(l);
-
+									if(m){
+										clearTimeout(m);
+									}
 								}
-								function addPopup(url){
-									var popup = \'<div class="refresh-pop-up"style="font-family:'.$pop_font.';width:'.$pop_mobile.'%;max-width:'.$pop_max_width.'px;background-color:'.$pop_bg_color.';color:'.$pop_color.';padding:'.$pop_padding.'px;"><h1>'.$pop_title.'</h1><p>'.$pop_message.'</p><button style="background-color:'.$pop_button_bg_color.'; color:'.$pop_button_color.';" id="cancel-refresh">'.$pop_cancel.'</button><button style="background-color:'.$pop_button_bg_color.'; color:'.$pop_button_color.';" id="continue-refresh">'.$pop_continue.'</button</div>\';
-									var spn = document.createElement("span");
-									spn.innerHTML = popup;
-									spn.id = "refresh-pop-up-shell";
-									document.getElementById("page").appendChild(spn);
-									document.getElementById("cancel-refresh").onclick = clearRefresh;
-									document.getElementById("continue-refresh").onclick = canRedirect;
+								var countdown = function(){
+										ct--;
+										clearTimeout(m);
+										if(ct > -1){
+											document.getElementById("pop-count").innerHTML = ct;
+											m = setTimeout(countdown, 1000);
+										}
+								}
+								function hexToRgb(hex) {
+									var arrBuff = new ArrayBuffer(4);
+								  var vw = new DataView(arrBuff);
+								  vw.setUint32(0,parseInt(hex, 16),false);
+								  var arrByte = new Uint8Array(arrBuff);
 
-									l = setTimeout(canRedirect, 8000);
+								  return arrByte[1] + "," + arrByte[2] + "," + arrByte[3];
+								}
+
+								function addPopup(url){
+									var showCount = "'.$pop_show_count.'";
+									var count = showCount ? \'<h2 id="pop-count">\'+ ct +\'</h2>\' : "";
+									var rgb = hexToRgb("'.$overlay.'");
+									var opacity = '.$overlay_opacity.' / 100;
+									var overlay = "rgba("+rgb+", "+opacity+")";
+									var popup = \'<div class="refresh-pop-up" \' +
+									             \'style="font-family:'.$pop_font.';\' +
+													 						\'	width:'.$pop_mobile.'%;\' +
+																			\'	max-width:'.$pop_max_width.'px;\' +
+																			\'	background-color:'.$pop_bg_color.';\' +
+																			\'	color:'.$pop_color.';\' +
+																			\'	border-radius:'.$pop_radius.'px;\' +
+																			\'	padding:'.$pop_padding.'px;\' +
+																			\'	border:'.$pop_border_width.'px solid '.$pop_border_color.' ;"\' +
+																\'	>\' +
+															\' <h1>'.$pop_title.'</h1>\' +
+															\' <p>'.$pop_message.'</p>\' +
+																 count +
+															\' <button style="background-color:'.$pop_button_bg_color.'; \' +
+															 								\' color:'.$pop_button_color.'; \' +
+															 								\' border:'.$pop_button_border_width.'px solid '.$pop_button_border_color.' ;"\' +
+																							\' id="cancel-refresh">'.$pop_cancel.'</button>\' +
+															 \' <button style="background-color:'.$pop_button_bg_color.';\' +
+															 								\' border:'.$pop_button_border_width.'px solid '.$pop_button_border_color.' ;"\' +
+																							\' color:'.$pop_button_color.';\' +
+																							\' id="continue-refresh">'.$pop_continue.'</button</div>\';
+									var spn = document.createElement("span");
+									var style = document.createElement("style");
+									spn.innerHTML = popup;
+									spn.style.background = overlay;
+									spn.id = "refresh-pop-up-shell";
+									// WebKit hack
+									style.appendChild(document.createTextNode(""));
+									// Add the <style> element to the page
+									document.head.appendChild(style);
+									addCSSRule(document.styleSheets[0], ".refresh-pop-up button:hover", "background-color: '.$pop_button_hover_bg_color.' !important; color:'.$pop_button_hover_color.'!important;border-color:'.$pop_button_hover_border_color.'!important;");
+									document.getElementById("page").appendChild(spn);
+
+									if(spn){
+										document.getElementById("cancel-refresh").onclick = clearRefresh;
+										document.getElementById("continue-refresh").onclick = canRedirect;
+									}
+
+									l = setTimeout(canRedirect, ('.$pop_count.' * 1000));
+									if(showCount){
+										m = setTimeout(countdown, 1000);
+									}
+								}
+								function addCSSRule(sheet, selector, rules, index) {
+									if("insertRule" in sheet) {
+										sheet.insertRule(selector + "{" + rules + "}", index);
+									}
+									else if("addRule" in sheet) {
+										sheet.addRule(selector, rules, index);
+									}
 								}
 								function redirect() {
 									 var userDisable = "' . $user_disable_refresh  . '";

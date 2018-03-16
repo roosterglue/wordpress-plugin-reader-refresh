@@ -189,6 +189,21 @@ class Reader_Refresh_Settings {
 			'description'			=> __( 'These the styles for the pop up for the user to disable the plugin.', 'reader-refresh' ),
 			'fields'				=> array(
 				array(
+					'id' 			=> 'pop_show_count',
+					'label'			=> __( 'Show Countdown', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'checkbox',
+					'default'		=> ''
+				),
+				array(
+					'id' 			=> 'pop_count',
+					'label'			=> __( 'Countdown Time', 'reader-refresh' ),
+					'description'	=> __( 'seconds Time before force refresh', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '8',
+					'placeholder'	=> __( '8', 'reader-refresh' )
+				),
+				array(
 					'id' 			=> 'pop_title',
 					'label'			=> __( 'Title', 'reader-refresh' ),
 					'description'	=> __( 'Header text for the popup.', 'reader-refresh' ),
@@ -253,6 +268,29 @@ class Reader_Refresh_Settings {
 					'placeholder'	=> __( '20', 'reader-refresh' )
 				),
 				array(
+					'id' 			=> 'pop_radius',
+					'label'			=> __( 'Border Radius', 'reader-refresh' ),
+					'description'	=> __( 'px  Curve of the corners', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '15',
+					'placeholder'	=> __( '15', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_border_width',
+					'label'			=> __( 'Popup Border Width', 'reader-refresh' ),
+					'description'	=> __( 'px', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '2',
+					'placeholder'	=> __( '2', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_border_color',
+					'label'			=> __( 'Popup Border Color', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'color',
+					'default'		=> '#000000',
+				),
+				array(
 					'id' 			=> 'pop_bg_color',
 					'label'			=> __( 'Background Color', 'reader-refresh' ),
 					'description'	=> __( '' ),
@@ -279,7 +317,75 @@ class Reader_Refresh_Settings {
 					'description'	=> __( '' ),
 					'type'			=> 'color',
 					'default'		=> '#FFFFFF'
-				)
+				),
+				array(
+					'id' 			=> 'pop_button_radius',
+					'label'			=> __( 'Button Border Radius', 'reader-refresh' ),
+					'description'	=> __( 'px  Curve of the corners', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '3',
+					'placeholder'	=> __( '3', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_button_border_width',
+					'label'			=> __( 'Button Border Width', 'reader-refresh' ),
+					'description'	=> __( 'px', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '1',
+					'placeholder'	=> __( '1', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_button_border_color',
+					'label'			=> __( 'Button Border Color', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'color',
+					'default'		=> '#000000',
+				),
+				array(
+					'id' 			=> 'pop_button_color',
+					'label'			=> __( 'Button Text Color', 'reader-refresh' ),
+					'description'	=> __( '' ),
+					'type'			=> 'color',
+					'default'		=> '#FFFFFF'
+				),
+				array(
+					'id' 			=> 'pop_button_hover_bg_color',
+					'label'			=> __( 'Button Border Hover Background Color', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'color',
+					'default'		=> '#444444',
+				),
+				array(
+					'id' 			=> 'pop_button_hover_color',
+					'label'			=> __( 'Button Hover Color', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'color',
+					'default'		=> '#dbdbdb',
+				),
+				array(
+					'id' 			=> 'pop_button_hover_border_color',
+					'label'			=> __( 'Button Hover Border Color', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'color',
+					'default'		=> '#000000',
+				),
+				array(
+					'id' 			=> 'overlay',
+					'label'			=> __( 'Overlay Color', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'color',
+					'default'		=> '#00000',
+				),
+				array(
+					'id' 			=> 'overlay_opacity',
+					'label'			=> __( 'Overlay Opacity', 'reader-refresh' ),
+					'description'	=> __( '%', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '90',
+					'placeholder'	=> __( '90', 'reader-refresh' )
+				),
+
+
 			)
 		);
 		$settings = apply_filters( $this->parent->_token . '_settings_fields', $settings );
