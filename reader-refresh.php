@@ -122,9 +122,9 @@ function my_custom_redirect () {
 			$pop_show_count =  get_option('wpt_pop_show_count') ?: 'false';
 			$pop_count =  get_option('wpt_pop_count') ?: 8;
 			$pop_radius = get_option('wpt_pop_radius') ?: 15;
-			$pop_border_width = get_option('$wpt_pop_border_width') ?: 2;
+			$pop_border_width = get_option('wpt_pop_border_width') ?: 2;
 			$pop_border_color = get_option('wpt_pop_border_color') ?: "#000000";
-			$pop_button_border_width = get_option('wpt_$pop_button_border_width') ?: 2;
+			$pop_button_border_width = get_option('wpt_pop_button_border_width') ?: 2;
 			$pop_button_border_color = get_option('wpt_pop_button_border_color') ?: "#000000";
 			$pop_button_hover_bg_color = get_option('wpt_pop_button_hover_bg_color') ?: "#000000";
 			$pop_button_hover_color = get_option('wpt_pop_button_hover__color') ?: "#ffffff";
@@ -144,6 +144,7 @@ function my_custom_redirect () {
 								var l;
 								var m;
 								var ct = '.$pop_count.';
+								var c = false;
 								if(window.location.href.indexOf("?rr=true") > -1 || window.location.href.indexOf("rr") > -1){
 									window.onload = resetTimer;
 									document.onmousedown = resetTimer; // touchscreen presses
@@ -151,7 +152,7 @@ function my_custom_redirect () {
 									document.onclick = resetTimer;     // touchpad clicks
 									document.onscroll = resetTimer;    // scrolling with arrow keys
 									document.onkeypress = resetTimer;
-								}							
+								}
 								var canRedirect = function(){
 									clearTimeout(t);
 									clearTimeout(l);
@@ -163,15 +164,19 @@ function my_custom_redirect () {
 										pop.outerHTML = "";
 										delete pop;
 									}
-									clearTimeout(t);
-									clearTimeout(l);
+									window.clearTimeout(t);
+									window.clearTimeout(l);
+									t = null;
+									l = null;
+									c = true;
 									if(m){
-										clearTimeout(m);
+										window.clearTimeout(m);
+										m = null;
 									}
 								}
 								var countdown = function(){
 										ct--;
-										clearTimeout(m);
+										window.clearTimeout(m);
 										if(ct > -1){
 											document.getElementById("pop-count").innerHTML = ct;
 											m = setTimeout(countdown, 1000);
@@ -253,8 +258,10 @@ function my_custom_redirect () {
 								}
 
 								function resetTimer() {
-										clearTimeout(t);
-										t = setTimeout(redirect, ('. $delay . ' * 1000));
+										if(!c){
+											clearTimeout(t);
+											t = setTimeout(redirect, ('. $delay . ' * 1000));
+										}
 								}
 							})();
 						</script>';
