@@ -107,6 +107,7 @@ function my_custom_redirect () {
 			$white_list = explode(", ",get_option('wpt_white_list'));
 			$url = getURL($redirect, $specific_url, $white_list);
 			$delay = $random ? rand($min, $max) : get_option('wpt_delay');
+			$triggers = implode("','", get_option('wpt_triggers'));
 			$pop_title = get_option('wpt_pop_title') ?: "Hello";
 			$pop_message = get_option('wpt_pop_message') ?: "You are about to be redirected";
 			$pop_cancel = get_option('wpt_pop_cancel') ?: "Cancel";
@@ -146,12 +147,25 @@ function my_custom_redirect () {
 								var ct = '.$pop_count.';
 								var c = false;
 								if(window.location.href.indexOf("?rr=true") > -1 || window.location.href.indexOf("rr") > -1){
+									var triggers = [\''.$triggers.'\'];
+
+									// window onload trigger always added so the plugin fires.
 									window.onload = resetTimer;
-									document.onmousedown = resetTimer; // touchscreen presses
-									document.ontouchstart = resetTimer;
-									document.onclick = resetTimer;     // touchpad clicks
-									document.onscroll = resetTimer;    // scrolling with arrow keys
-									document.onkeypress = resetTimer;
+
+									// Add triggers based off of plugin selections
+									if(triggers.indexOf("click") !== -1){
+										document.onmousedown = resetTimer; // touchscreen presses
+										document.onclick = resetTimer;     // touchpad clicks
+									}
+									if(triggers.indexOf("scroll") !== -1){
+										document.onscroll = resetTimer;    // scrolling with arrow keys
+									}
+									if(triggers.indexOf("keypress") !== -1){
+										document.onkeypress = resetTimer;
+									}
+									if(triggers.indexOf("touch") !== -1){
+										document.ontouchstart = resetTimer;
+									}
 								}
 								var canRedirect = function(){
 									clearTimeout(t);

@@ -67,7 +67,8 @@ class Reader_Refresh_Settings {
 	 * @return void
 	 */
 	public function add_menu_item () {
-		$page = add_options_page( __( 'Reader Refresh', 'reader-refresh' ) , __( 'Reader Refresh', 'reader-refresh' ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ) );
+		$icon_url = plugins_url( 'wordrpress-plugin-reader-refresh/assets/images/reader-refresh.png' );
+		$page = add_menu_page( __( 'Reader Refresh', 'reader-refresh' ) , __( 'Reader Refresh', 'reader-refresh' ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ), $icon_url );
 		add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 	}
 
@@ -161,11 +162,19 @@ class Reader_Refresh_Settings {
 					'placeholder'	=> __( '30000', 'reader-refresh' )
 				),
 				array(
+					'id' 			=> 'triggers',
+					'label'			=> __( 'Triggers for refresh', 'reader-refresh' ),
+					'description'	=> __( '', 'reader-refresh' ),
+					'type'			=> 'checkbox_multi',
+					'options'		=> array( 'click' => 'On Click', 'scroll' => 'On Scroll', 'keypress' => 'On Keypress', 'touch' => 'On Touch' ),
+					'default'		=>  array( 'click')
+				),
+				array(
 					'id' 			=> 'redirect',
 					'label'			=> __( 'Redirect to', 'reader-refresh' ),
 					'description'	=> __( '', 'reader-refresh' ),
 					'type'			=> 'radio',
-					'options'		=> array( 'same' => 'Same URL', 'specific' => 'Specific URL', 'random' => 'Random URL', 'list' => 'White List' ),
+					'options'		=> array( 'same' => 'Same URL', 'specific' => 'Specific URL', 'random' => 'Random Internal URL', 'list' => 'White List' ),
 					'default'		=> 'same'
 				),
 				array(
