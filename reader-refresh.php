@@ -112,7 +112,7 @@ function my_custom_redirect () {
 			$pop_message = get_option('wpt_pop_message') ?: "You are about to be redirected";
 			$pop_cancel = get_option('wpt_pop_cancel') ?: "Cancel";
 			$pop_continue = get_option('wpt_pop_continue') ?: "Continue";
-			$pop_font = get_option('wpt_pop_font') ?: "arial";
+			$pop_font = get_option('wpt_pop_font') ?: "Monserrat";
 			$pop_mobile = get_option('wpt_pop_mobile') ?: "90";
 			$pop_max_width = get_option('wpt_pop_max_width') ?: "600";
 			$pop_padding = get_option('wpt_pop_padding') ?: "20";

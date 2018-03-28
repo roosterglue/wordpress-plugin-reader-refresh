@@ -72,16 +72,26 @@ class Reader_Refresh_Settings {
 		add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 	}
 
+	public function google_fonts() {
+
+	}
+
+
+
 	/**
 	 * Load settings JS & CSS
 	 * @return void
 	 */
 	public function settings_assets () {
 
-		// We're including the farbtastic script & styles here because they're needed for the colour picker
-		// If you're not including a colour picker field then you can leave these calls out as well as the farbtastic dependency for the wpt-admin-js script below
-		wp_enqueue_style( 'farbtastic' );
+		  // We're including the farbtastic script & styles here because they're needed for the colour picker
+		  // If you're not including a colour picker field then you can leave these calls out as well as the farbtastic dependency for the wpt-admin-js script below
+		  wp_enqueue_style( 'farbtastic' );
     	wp_enqueue_script( 'farbtastic' );
+
+			$query_args = array('family' => 'Montserrat:400,700');
+			wp_register_style( 'google_fonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
+			add_action('wp_enqueue_scripts', 'google_fonts');
 
     	// We're including the WP media scripts here because they're needed for the image upload field
     	// If you're not including an image upload then you can leave this function call out
@@ -250,7 +260,7 @@ class Reader_Refresh_Settings {
 					'description'	=> __( 'Cancel button text for the popup.', 'reader-refresh' ),
 					'type'			=> 'text',
 					'default'		=> 'arial',
-					'placeholder'	=> __( 'arial', 'reader-refresh' )
+					'placeholder'	=> __( 'Monserrat', 'reader-refresh' )
 				),
 				array(
 					'id' 			=> 'pop_mobile',
