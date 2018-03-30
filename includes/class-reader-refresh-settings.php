@@ -67,7 +67,7 @@ class Reader_Refresh_Settings {
 	 * @return void
 	 */
 	public function add_menu_item () {
-		$icon_url = plugins_url( 'wordrpress-plugin-reader-refresh/assets/images/reader-refresh.png' );
+		$icon_url = plugins_url('', dirname(__FILE__) ).'/assets/images/reader-refresh_x16.png';
 		$page = add_menu_page( __( 'Reader Refresh', 'reader-refresh' ) , __( 'Reader Refresh', 'reader-refresh' ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ), $icon_url );
 		add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 	}
