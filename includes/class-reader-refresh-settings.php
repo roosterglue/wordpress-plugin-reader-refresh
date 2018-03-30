@@ -72,13 +72,6 @@ class Reader_Refresh_Settings {
 		add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 	}
 
-	public function google_fonts() {
-		$query_args = array('family' => 'Montserrat:400,700');
-		wp_register_style( 'google_fonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
-		add_action('wp_enqueue_scripts', 'google_fonts');
-	}
-
-
 
 	/**
 	 * Load settings JS & CSS
@@ -469,11 +462,13 @@ class Reader_Refresh_Settings {
 	 * @return void
 	 */
 	public function settings_page () {
-
+		$imgDir = plugins_url('', dirname(__FILE__) ).'/assets/images/';
 		// Build page HTML
 		$html = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
-			$html .= '<h2>' . __( 'Reader Refresh Settings' , 'reader-refresh' ) . '</h2>' . "\n";
-
+			$html .= '<div class="refresh-header">' . "\n";
+			$html .= '<p>Reader Refresh</p>' . "\n";
+			$html .= '</div>'. "\n";
+			$html .= '<h2 class="hidden"></h2>' . "\n";
 			$tab = '';
 			if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
 				$tab .= $_GET['tab'];
