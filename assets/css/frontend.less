@@ -6,6 +6,8 @@
   height:100%;
   width:100%;
   z-index: 9999999999;
+  animation-name: fadeIn;
+  animation-duration: 300ms;
 }
 
 .refresh-pop-up{
@@ -15,10 +17,13 @@
   background-color:#fff;
   color:#000;
   position: absolute;
-  top:20%;
   left:50%;
   transform:translateX(-50%);
   text-align: center;
+  transition:all 300ms ease;
+  animation-duration: 300ms;
+  animation-delay: 300ms;
+  animation-fill-mode: forwards;
   h1{
     margin-bottom:0;
     font-family: 'Monserrat', sans-serif;
@@ -42,4 +47,10 @@
   p{
     font-family: 'Monserrat', sans-serif;
   }
+}
+
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }

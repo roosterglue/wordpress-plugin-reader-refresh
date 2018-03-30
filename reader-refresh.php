@@ -130,8 +130,18 @@ function my_custom_redirect () {
 			$pop_button_hover_bg_color = get_option('wpt_pop_button_hover_bg_color') ?: "#000000";
 			$pop_button_hover_color = get_option('wpt_pop_button_hover__color') ?: "#ffffff";
 			$pop_button_hover_border_color = get_option('wpt_pop_button_hover_border_color') ?: "#000000";
+			$pop_top = get_option('wpt_pop_top') ?: 'auto';
+			$pop_bottom = get_option('wpt_pop_bottom') ?: 'auto';
+			$transitionName = get_option('wpt_pop_transition') ?: 'top';
+			$transitionTo = '50';
 			$overlay =  get_option('wpt_overlay') ?: "#000000";
 			$overlay_opacity =  get_option('wpt_overlay_opacity') ?: "90";
+
+			if($transitionName === 'top'){
+				 $transitionTo = $pop_top;
+			}else if($transitionName === 'bottom'){
+				$transitionTo = $pop_bottom;
+			}
 
 			if($continuous_refresh){
 				$url = $url. '?rr=true';
@@ -211,16 +221,7 @@ function my_custom_redirect () {
 									var rgb = hexToRgb("'.$overlay.'");
 									var opacity = '.$overlay_opacity.' / 100;
 									var overlay = "rgba("+rgb+", "+opacity+")";
-									var popup = \'<div class="refresh-pop-up" \' +
-									             \'style="font-family:'.$pop_font.';\' +
-													 						\'	width:'.$pop_mobile.'%;\' +
-																			\'	max-width:'.$pop_max_width.'px;\' +
-																			\'	background-color:'.$pop_bg_color.';\' +
-																			\'	color:'.$pop_color.';\' +
-																			\'	border-radius:'.$pop_radius.'px;\' +
-																			\'	padding:'.$pop_padding.'px;\' +
-																			\'	border:'.$pop_border_width.'px solid '.$pop_border_color.' ;"\' +
-																\'	>\' +
+									var popup = \'<div class="refresh-pop-up">\' +
 															\' <h1>'.$pop_title.'</h1>\' +
 															\' <p>'.$pop_message.'</p>\' +
 																 count +
@@ -237,11 +238,30 @@ function my_custom_redirect () {
 									spn.innerHTML = popup;
 									spn.style.background = overlay;
 									spn.id = "refresh-pop-up-shell";
-									// WebKit hack
-									style.appendChild(document.createTextNode(""));
-									// Add the <style> element to the page
-									document.head.appendChild(style);
-									addCSSRule(document.styleSheets[0], ".refresh-pop-up button:hover", "background-color: '.$pop_button_hover_bg_color.' !important; color:'.$pop_button_hover_color.'!important;border-color:'.$pop_button_hover_border_color.'!important;");
+									var styleSheet = \'.refresh-pop-up button:hover{background-color: '.$pop_button_hover_bg_color.' !important; color:'.$pop_button_hover_color.'!important;border-color:'.$pop_button_hover_border_color.'!important;} \' +
+																	\'.refresh-pop-up {animation-name: slide;\' +
+																					\' font-family:'.$pop_font.';\' +
+		 													 						\'	width:'.$pop_mobile.'%;\' +
+		 																			\'	max-width:'.$pop_max_width.'px;\' +
+		 																			\'	background-color:'.$pop_bg_color.';\' +
+		 																			\'	color:'.$pop_color.';\' +
+		 																			\'	border-radius:'.$pop_radius.'px;\' +
+		 																			\'	padding:'.$pop_padding.'px;\' +
+		 																			\'	border:'.$pop_border_width.'px solid '.$pop_border_color.' ;\' +
+																					\'  top: '.$pop_top.'%; \' +
+																					\'  bottom: '.$pop_bottom.'%; \' +
+		 																			\'	'.$transitionName.': -100%;\' +
+																	\' }\'+
+																	\'@-webkit-keyframes slide {\' +
+																	    \' from {'.$transitionName.' : -100%;}\'+
+																			\' to {'.$transitionName.' : '.$transitionTo.'%;}\'+
+																	\'}\'+
+																	\'@keyframes slide {\' +
+																		    \' from {'.$transitionName.' : -100%; }\'+
+																				\' to {'.$transitionName.' : '.$transitionTo.'%;}\'+
+																		\'}\'
+									style.innerHTML = styleSheet;
+									document.getElementsByTagName("head")[0].appendChild(style);
 									document.getElementById("page").appendChild(spn);
 
 									if(spn){

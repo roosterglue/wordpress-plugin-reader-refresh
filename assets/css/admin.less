@@ -11,14 +11,6 @@
     padding: 0 30px;
   }
 
-  .standard {
-    .enable-hidden,
-    .hidden,
-    .random-hidden {
-      display: none;
-    }
-  }
-
   input[type=number] {
     max-width: 60px;
     text-align: right;
@@ -32,12 +24,13 @@
     margin-left: -30px;
 
     p {
-      background-color: #fff;
       display: inline-block;
       padding: 40px 20px;
-      margin: 0 0 0 20%;
+      margin: 0 0 0 30px;
       font-size: 26px;
       font-weight: 800;
+      text-shadow: 0 0 3px #fff;
+      text-transform: uppercase;
     }
     @media (max-width: 768px) {
       background-image: url("../images/2712x238-header-space-tiles-min.jpg");
@@ -48,5 +41,13 @@
         margin-right: 2%;
       }
     }
+  }
+}
+
+.standard {
+  .enable-hidden,
+  .hidden,
+  .random-hidden {
+    display: none;
   }
 }

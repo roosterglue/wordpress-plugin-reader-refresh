@@ -258,6 +258,30 @@ class Reader_Refresh_Settings {
 					'placeholder'	=> __( 'Monserrat', 'reader-refresh' )
 				),
 				array(
+					'id' 			=> 'pop_transition',
+					'label'			=> __( 'Transition Direction', 'reader-refresh' ),
+					'description'	=> __( 'Transition From.', 'reader-refresh' ),
+					'type'			=> 'select',
+					'options'		=> array( 'bottom' => 'Bottom', 'top' => 'Top', 'left' => 'Left', 'right' => 'Right' ),
+					'default'		=> 'top'
+				),
+				array(
+					'id' 			=> 'pop_top',
+					'label'			=> __( 'Position From Top', 'reader-refresh' ),
+					'description'	=> __( '%', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '0',
+					'placeholder'	=> __( '0', 'reader-refresh' )
+				),
+				array(
+					'id' 			=> 'pop_bottom',
+					'label'			=> __( 'Position From Bottom', 'reader-refresh' ),
+					'description'	=> __( '%', 'reader-refresh' ),
+					'type'			=> 'number',
+					'default'		=> '0',
+					'placeholder'	=> __( '0', 'reader-refresh' )
+				),
+				array(
 					'id' 			=> 'pop_mobile',
 					'label'			=> __( 'Mobile Width', 'reader-refresh' ),
 					'description'	=> __( '% Mobile width for the popup.', 'reader-refresh' ),
