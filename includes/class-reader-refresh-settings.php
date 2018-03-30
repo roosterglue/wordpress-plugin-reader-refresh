@@ -73,7 +73,9 @@ class Reader_Refresh_Settings {
 	}
 
 	public function google_fonts() {
-
+		$query_args = array('family' => 'Montserrat:400,700');
+		wp_register_style( 'google_fonts', add_query_arg( $query_args, "//fonts.googleapis.com/css" ), array(), null );
+		add_action('wp_enqueue_scripts', 'google_fonts');
 	}
 
 
