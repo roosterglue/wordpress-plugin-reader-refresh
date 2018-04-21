@@ -115,7 +115,7 @@ class Reader_Refresh_Settings {
 
 		$settings['standard'] = array(
 			'title'					=> __( 'General Settings', 'reader-refresh' ),
-			'description'			=> __( 'General Plugin Settings', 'reader-refresh' ),
+			'description'			=> __( '', 'reader-refresh' ),
 			'fields'				=> array(
 				array(
 					'id' 			=> 'enable_refresh',
@@ -200,7 +200,7 @@ class Reader_Refresh_Settings {
 		);
 		$settings['popup'] = array(
 			'title'					=> __( 'Popup Styles', 'reader-refresh' ),
-			'description'			=> __( 'These the styles for the pop up for the user to disable the plugin.', 'reader-refresh' ),
+			'description'			=> __( 'These are the popup styles for the user to disable the plugin', 'reader-refresh' ),
 			'fields'				=> array(
 				array(
 					'id' 			=> 'pop_show_count',
@@ -489,10 +489,11 @@ class Reader_Refresh_Settings {
 		$imgDir = plugins_url('', dirname(__FILE__) ).'/assets/images/';
 		// Build page HTML
 		$html = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
+		  $html .= '<h2 class="hidden"></h2>' . "\n";
 			$html .= '<div class="refresh-header">' . "\n";
-			$html .= '<p>Reader Refresh</p>' . "\n";
+			$html .= '<p>READER REFRESH</p>' . "\n";
+			$html .= '<img class="refresh-logo" src="'.$imgDir.'rooster_logo.png" alt="Rooster Glue Logo"/>' . "\n";
 			$html .= '</div>'. "\n";
-			$html .= '<h2 class="hidden"></h2>' . "\n";
 			$tab = '';
 			if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
 				$tab .= $_GET['tab'];
