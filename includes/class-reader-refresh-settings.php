@@ -252,7 +252,7 @@ class Reader_Refresh_Settings {
 				array(
 					'id' 			=> 'pop_font',
 					'label'			=> __( 'Font', 'reader-refresh' ),
-					'description'	=> __( 'Cancel button text for the popup.', 'reader-refresh' ),
+					'description'	=> __( 'Font for the popup.', 'reader-refresh' ),
 					'type'			=> 'text',
 					'default'		=> 'arial',
 					'placeholder'	=> __( 'Monserrat', 'reader-refresh' )
@@ -286,16 +286,16 @@ class Reader_Refresh_Settings {
 					'label'			=> __( 'Mobile Width', 'reader-refresh' ),
 					'description'	=> __( '% Mobile width for the popup.', 'reader-refresh' ),
 					'type'			=> 'number',
-					'default'		=> '90',
-					'placeholder'	=> __( '90', 'reader-refresh' )
+					'default'		=> '100',
+					'placeholder'	=> __( '100', 'reader-refresh' )
 				),
 				array(
 					'id' 			=> 'pop_max_width',
 					'label'			=> __( 'Max Width', 'reader-refresh' ),
 					'description'	=> __( 'px max-width for the popup.', 'reader-refresh' ),
 					'type'			=> 'number',
-					'default'		=> '600',
-					'placeholder'	=> __( '600', 'reader-refresh' )
+					'default'		=> '2048',
+					'placeholder'	=> __( '2048', 'reader-refresh' )
 				),
 				array(
 					'id' 			=> 'pop_padding',
@@ -310,23 +310,23 @@ class Reader_Refresh_Settings {
 					'label'			=> __( 'Border Radius', 'reader-refresh' ),
 					'description'	=> __( 'px  Curve of the corners', 'reader-refresh' ),
 					'type'			=> 'number',
-					'default'		=> '15',
-					'placeholder'	=> __( '15', 'reader-refresh' )
+					'default'		=> '1',
+					'placeholder'	=> __( '1', 'reader-refresh' )
 				),
 				array(
 					'id' 			=> 'pop_border_width',
 					'label'			=> __( 'Popup Border Width', 'reader-refresh' ),
 					'description'	=> __( 'px', 'reader-refresh' ),
 					'type'			=> 'number',
-					'default'		=> '2',
-					'placeholder'	=> __( '2', 'reader-refresh' )
+					'default'		=> '6',
+					'placeholder'	=> __( '6', 'reader-refresh' )
 				),
 				array(
 					'id' 			=> 'pop_border_color',
 					'label'			=> __( 'Popup Border Color', 'reader-refresh' ),
 					'description'	=> __( '', 'reader-refresh' ),
 					'type'			=> 'color',
-					'default'		=> '#000000',
+					'default'		=> '#FFFFFF',
 				),
 				array(
 					'id' 			=> 'pop_bg_color',
@@ -347,7 +347,7 @@ class Reader_Refresh_Settings {
 					'label'			=> __( 'Button Background Color', 'reader-refresh' ),
 					'description'	=> __( '' ),
 					'type'			=> 'color',
-					'default'		=> '#000000'
+					'default'		=> '#01BED9'
 				),
 				array(
 					'id' 			=> 'pop_button_color',
@@ -384,7 +384,7 @@ class Reader_Refresh_Settings {
 					'label'			=> __( 'Button Text Color', 'reader-refresh' ),
 					'description'	=> __( '' ),
 					'type'			=> 'color',
-					'default'		=> '#FFFFFF'
+					'default'		=> '#000000'
 				),
 				array(
 					'id' 			=> 'pop_button_hover_bg_color',
@@ -398,7 +398,7 @@ class Reader_Refresh_Settings {
 					'label'			=> __( 'Button Hover Color', 'reader-refresh' ),
 					'description'	=> __( '', 'reader-refresh' ),
 					'type'			=> 'color',
-					'default'		=> '#dbdbdb',
+					'default'		=> '#01BED9',
 				),
 				array(
 					'id' 			=> 'pop_button_hover_border_color',
