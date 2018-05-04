@@ -2,10 +2,10 @@
 /*
  * Plugin Name: Reader Refresh
  * Version: 1.0
- * Plugin URI: http://www.google.com/
+ * Plugin URI: https://roosterglue.com/
  * Description: Automatically refresh your site's page
  * Author: Rooster Glue
- * Author URI: http://www.google.com/
+ * Author URI: https://roosterglue.com/
  * Requires at least: 4.0
  * Tested up to: 4.0
  *
