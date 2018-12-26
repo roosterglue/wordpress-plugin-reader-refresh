@@ -248,21 +248,22 @@ function my_custom_redirect () {
 		 																			\'	border-radius:'.$pop_radius.'px;\' +
 		 																			\'	padding:'.$pop_padding.'px;\' +
 		 																			\'	border:'.$pop_border_width.'px solid '.$pop_border_color.' ;\' +
-																					\'  top: '.$pop_top.'%; \' +
-																					\'  bottom: '.$pop_bottom.'%; \' +
+																					\'  top: '.$pop_top. ($pop_top != 'auto' ? '%' : '') . '; \' +
+																					\'  bottom: '.$pop_bottom. ($pop_bottom != 'auto' ? '%' : '') . '; \' +
 		 																			\'	'.$transitionName.': -100%;\' +
 																	\' }\'+
 																	\'@-webkit-keyframes slide {\' +
 																	    \' from {'.$transitionName.' : -100%;}\'+
-																			\' to {'.$transitionName.' : '.$transitionTo.'%;}\'+
+																			\' to {'.$transitionName.' : '.$transitionTo. ($transitionTo != 'auto' ? '%' : '') . ';}\'+
 																	\'}\'+
 																	\'@keyframes slide {\' +
 																		    \' from {'.$transitionName.' : -100%; }\'+
-																				\' to {'.$transitionName.' : '.$transitionTo.'%;}\'+
+																				\' to {'.$transitionName.' : '.$transitionTo. ($transitionTo != 'auto' ? '%' : '') . ';}\'+
 																		\'}\'
 									style.innerHTML = styleSheet;
 									document.getElementsByTagName("head")[0].appendChild(style);
-									document.getElementById("page").appendChild(spn);
+									document.getElementsByTagName("body")[0].appendChild(spn);
+									// document.getElementById("page").appendChild(spn);
 
 									if(spn){
 										document.getElementById("cancel-refresh").onclick = clearRefresh;
