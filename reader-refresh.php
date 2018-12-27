@@ -107,7 +107,7 @@ function my_custom_redirect () {
 			$white_list = explode(", ",get_option('wpt_white_list'));
 			$url = getURL($redirect, $specific_url, $white_list);
 			$delay = $random ? rand($min, $max) : get_option('wpt_delay');
-			$triggers = implode("','", get_option('wpt_triggers'));
+			$triggers = get_option('wpt_triggers') ? implode("','", get_option('wpt_triggers')) : '';
 			$pop_title = get_option('wpt_pop_title') ?: "Hello";
 			$pop_message = get_option('wpt_pop_message') ?: "You are about to be redirected";
 			$pop_cancel = get_option('wpt_pop_cancel') ?: "Cancel";
