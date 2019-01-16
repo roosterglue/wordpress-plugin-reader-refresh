@@ -304,4 +304,4 @@ function my_custom_redirect () {
 		}
 	}
 }
-add_action( 'get_header', 'my_custom_redirect' );
+add_action( 'wp_head', 'my_custom_redirect' );
