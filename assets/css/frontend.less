@@ -1,0 +1,56 @@
+#refresh-pop-up-shell{
+  position: fixed;
+  top:0;
+  left:0;
+  background-color:rgba(0,0,0,0.6);
+  height:100%;
+  width:100%;
+  z-index: 9999999999;
+  animation-name: fadeIn;
+  animation-duration: 300ms;
+}
+
+.refresh-pop-up{
+  font-family: 'Monserrat', sans-serif;
+  padding:20px;
+  border-radius:5px;
+  background-color:#fff;
+  color:#000;
+  position: absolute;
+  left:50%;
+  transform:translateX(-50%);
+  text-align: center;
+  transition:all 300ms ease;
+  animation-duration: 300ms;
+  animation-delay: 300ms;
+  animation-fill-mode: forwards;
+  h1{
+    margin-bottom:0;
+    font-family: 'Monserrat', sans-serif;
+  }
+  h2{
+    margin:10px auto;
+    font-family: 'Monserrat', sans-serif;
+  }
+  button{
+    padding:8px 20px;
+    display: inline-block;
+    margin: 20px 10px;
+    background-color:#000;
+    border:0;
+    color:#fff;
+    border-radius:3px;
+    box-shadow: none;
+    cursor:pointer;
+    transition: all 300ms ease;
+  }
+  p{
+    font-family: 'Monserrat', sans-serif;
+  }
+}
+
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
